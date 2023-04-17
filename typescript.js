@@ -22,3 +22,15 @@ function add(x, y) {
     return x + y;
 }
 console.log(add(1, 2));
+var StringNumGetterSetter = /** @class */ (function () {
+    function StringNumGetterSetter() {
+        this.map = new Map();
+    }
+    StringNumGetterSetter.prototype.set = function (key, value) {
+        this.map.set(key, value);
+    };
+    StringNumGetterSetter.prototype.get = function (key) {
+        return this.map.get(key);
+    };
+    return StringNumGetterSetter;
+}());
