@@ -2,7 +2,13 @@ import logo from './logo.svg';
 import './App.css';
 import Counter from './Counter';
 import CustomInput from './Custominput';
-import {useState, useRef, forwardRef} from 'react';
+import { useState, useRef, forwardRef } from 'react';
+import Profile from './Profile';
+import { UserContext, UserContextProvider } from './UserContext';
+import { useContext } from 'react';
+
+
+
 
 function App() {
 
@@ -27,10 +33,13 @@ function App() {
   const customInputRef = useRef()
 
 
+ 
+
+
   return (
     <>
 
-    {/* <button onClick={startTimer}>Start</button>
+      {/* <button onClick={startTimer}>Start</button>
     <button onClick={stopTimer}>Stop</button>
     <p>Seconds: {seconds}</p> */}
 
@@ -39,13 +48,18 @@ function App() {
     <MyInput ref={inputRef}/>
     <button onClick={focusInput}>Focus</button> */}
 
-    <Counter ref={counterRef} />
-    <CustomInput ref={customInputRef} placeholder="Type something..."/>
-    <button  onClick={() =>{
-      counterRef.current.reset()
-      customInputRef.current.reset()
-    }}>Reset</button>
+      <Counter ref={counterRef} />
+      <CustomInput ref={customInputRef} placeholder="Type something..." />
+      <button onClick={() => {
+        counterRef.current.reset()
+        customInputRef.current.reset()
+      }}>Reset</button>
 
+
+        {/* CONTEXTS */}
+        <UserContextProvider >
+          <AppInternal/>
+        </UserContextProvider>
     </>
   );
 }
@@ -54,5 +68,15 @@ function App() {
 // const MyInput = forwardRef(function (props, ref) {
 //   return <input ref={ref} {...props} style={{color: "red"}}/>
 // })
+
+function AppInternal(){
+  const {toggleUser} = useContext(UserContext)
+  return(
+   <>
+    <Profile />
+    <button onClick={toggleUser}>Toggle User</button>
+   </>
+  )
+}
 
 export default App;
